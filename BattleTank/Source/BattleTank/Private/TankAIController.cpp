@@ -15,7 +15,7 @@ void ATankAIController::BeginPlay() {
 	UE_LOG(LogTemp, Warning, TEXT("AIController Begin Play"));
 }
 
-ATank* ATankAIController::GetAIControlledTank() const {
+ATank* ATankAIController::GetControlledTank() const {
 	return Cast<ATank>(GetPawn());
 }
 
@@ -35,7 +35,7 @@ void ATankAIController::Tick(float DeltaTime)
 		// TODO Move Towards the player
 
 		// aim towards the player
-		GetAIControlledTank()->AimAt(GetPlayerTank()->GetTargetLocation());
+		GetControlledTank()->AimAt(GetPlayerTank()->GetTargetLocation());
 
 		//fire shot
 	}
