@@ -33,4 +33,6 @@ private:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+	UPROPERTY(EditAnywhere, Category = Firing)
+	float LaunchSpeed = 100000; //TODO find sensible default for firing speed
 };
