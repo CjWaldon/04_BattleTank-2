@@ -19,8 +19,11 @@ class BATTLETANK_API ATankAIController : public AAIController
 
 private:
 	virtual void BeginPlay() override;
-	ATank* GetControlledTank() const;
-	ATank* GetPlayerTank() const;
+	//ATank* GetControlledTank() const;
+	//ATank* GetPlayerTank() const;
+
+	//how close the ai tank can get to player
+	float AcceptanceRadius = 3000;
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 	
