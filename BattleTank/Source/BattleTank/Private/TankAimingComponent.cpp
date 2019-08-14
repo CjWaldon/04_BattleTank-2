@@ -47,7 +47,16 @@ void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection) {
 	//work out difference between current barrel rotation and aimDirection
 	auto BarrelRotator = Barrel->GetForwardVector().Rotation();
 	auto AimAsRotator = AimDirection.Rotation();
-	auto DeltaRotator = AimAsRotator - BarrelRotator;
+	FRotator DeltaRotator = AimAsRotator - BarrelRotator;
+
+	if (DeltaRotator.Yaw > 180.f) {
+		DeltaRotator.Yaw = DeltaRotator.Yaw - 360.f;
+	}
+
+	if (DeltaRotator.Yaw < -180.f) {
+		DeltaRotator.Yaw = DeltaRotator.Yaw + 360.f;
+	}
+	
 	
 
 	Barrel->Elevate(DeltaRotator.Pitch);
