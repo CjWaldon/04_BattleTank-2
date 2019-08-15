@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Copyright EmbraceIT Ltd.
 
 
 #include "TankAimingComponent.h"
@@ -18,7 +18,7 @@ UTankAimingComponent::UTankAimingComponent()
 
 
 void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed) {
-	if (!Barrel) {
+	if (!ensure(Barrel)) {
 		return;
 	}
 	FVector OutLaunchVelocity;
@@ -33,17 +33,15 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed) {
 	}
 }
 
-void UTankAimingComponent::SetBarrelReference(UTankBarrel* BarrelToSet) {
-	if (!BarrelToSet) { return; }
+void UTankAimingComponent::Initialize(UTankBarrel* BarrelToSet, UTankTurret* TurretToSet) {
 	Barrel = BarrelToSet;
-}
-
-void UTankAimingComponent::SetTurretReference(UTankTurret* TurretToSet) {
-	if (!TurretToSet) { return; }
 	Turret = TurretToSet;
 }
 
 void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection) {
+
+	if (!ensure(Barrel && Turret)) { return; }
+
 	//work out difference between current barrel rotation and aimDirection
 	auto BarrelRotator = Barrel->GetForwardVector().Rotation();
 	auto AimAsRotator = AimDirection.Rotation();
@@ -57,6 +55,8 @@ void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection) {
 		DeltaRotator.Yaw = DeltaRotator.Yaw + 360.f;
 	}
 	
+	//teach solved aiming long way by using 
+	// Turret->Rotate(DeltaRotator.GetNormalized().Yaw;
 	
 
 	Barrel->Elevate(DeltaRotator.Pitch);
