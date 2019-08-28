@@ -47,7 +47,6 @@ void AProjectile::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, U
 	SetRootComponent(ImpactBlast);
 	CollisionMesh->DestroyComponent();
 
-	UE_LOG(LogTemp, Warning, TEXT("Before ApplyRadialDamage"))
 	UGameplayStatics::ApplyRadialDamage(
 		this,
 		ProjectileDamage,
@@ -56,7 +55,6 @@ void AProjectile::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, U
 		UDamageType::StaticClass(),
 		TArray<AActor*>() // damage all actors
 	);
-	UE_LOG(LogTemp, Warning, TEXT("After ApplyRadialDamage"))
 
 	FTimerHandle Timer;
 	GetWorld()->GetTimerManager().SetTimer(Timer, this, &AProjectile::OnTimerExpire, DestroyDelay, false);
